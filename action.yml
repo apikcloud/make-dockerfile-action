@@ -1,0 +1,11 @@
+name: 'Make Dockerfile'
+description: 'Make Odoo Dockerfile'
+inputs:
+  version:
+    description: 'version'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.version }}
