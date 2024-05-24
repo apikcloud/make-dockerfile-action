@@ -1,12 +1,12 @@
 #!/bin/bash
 
-WORKDIR = /github/workspace
-ADDONS_PATH = /mnt/extra-addons
+WORKDIR=/github/workspace
+ADDONS_PATH=/mnt/extra-addons
 
-PKG_FILE = "${WORKDIR}/packages.txt"
-REQ_FILE = "${WORKDIR}/requirements.txt"
-VERSION_FILE = "${WORKDIR}/$1"
-BASE = "`cat ${VERSION_FILE}`"
+PKG_FILE="${WORKDIR}/packages.txt"
+REQ_FILE="${WORKDIR}/requirements.txt"
+VERSION_FILE="${WORKDIR}/$1"
+BASE="`cat ${VERSION_FILE}`"
 
 if [ -f ${PKG_FILE} ]
 then
