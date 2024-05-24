@@ -31,6 +31,8 @@ FROM ${BASE}
 
 USER root
 
+RUN pip3 install pip --upgrade
+
 ${pkg_cmd}
 
 USER odoo
