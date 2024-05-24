@@ -19,7 +19,9 @@ fi
 if [ -f ${REQ_FILE} ]
 then
     items=$(grep -vE "^\s*#" ${REQ_FILE}  | tr "\n" " ")
-    req_cmd="RUN pip3 install ${items}"
+    req=""
+    for word in $items; do req="${req} \"$word\""; done
+    req_cmd="RUN pip3 install ${req}"
 else
     req_cmd=""
 fi
@@ -30,7 +32,12 @@ FROM ${BASE}
 USER root
 
 ${pkg_cmd}
+
+USER odoo
+
 ${req_cmd}
+
+USER root
 
 COPY . ${ADDONS_PATH}
 
