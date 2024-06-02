@@ -1,0 +1,23 @@
+FROM {{ base }}
+
+{% if force_upgrade or sys_packages %}USER root{% endif %}
+{% if sys_packages %}RUN apt-get update && apt-get install --no-install-recommends -y {% for pkg in sys_packages %}{{ pkg }} {% endfor %}{% endif %}
+{% if force_upgrade %}RUN pip3 install pip --upgrade{% endif %}
+
+{% if py_packages or dev %}USER odoo{% endif %}
+{% if py_packages %}RUN pip3 install --no-cache-dir {% for pkg in py_packages %}"{{ pkg }}" {% endfor %}{% endif %}
+{% if dev %}RUN pip3 install --no-cache-dir {% for pkg in dev_packages %}"{{ pkg }}" {% endfor %}{% endif %}
+
+USER root
+
+COPY . {{ addons_path }}
+
+RUN chown -R odoo:odoo {{ addons_path }}
+
+USER odoo
+{% if dev %}
+ENV PGHOST=postgres
+ENV PGUSER=odoo
+ENV PGPASSWORD=odoo
+ENV PGDATABASE=odoo
+{% endif %}

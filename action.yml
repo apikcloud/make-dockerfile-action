@@ -1,11 +1,20 @@
 name: 'Make Dockerfile'
 description: 'Make Odoo Dockerfile'
+branding:
+  icon: 'code'
+  color: 'green'
 inputs:
-  version:
-    description: 'version'
+  image:
+    description: 'Base Image'
+    type: string
     required: true
+  dev:
+    description: 'Dev mode'
+    type: bool
+    required: false
+    default: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.version }}
+    - ${{ inputs.args }}

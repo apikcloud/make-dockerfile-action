@@ -1,7 +1,14 @@
-FROM alpine:3.10
+FROM python:3.11.9-slim
 
-RUN apk update && apk add bash
+ADD . /app
+WORKDIR /app
 
-COPY entrypoint.sh /entrypoint.sh
+RUN apt-get update && apt-get install --no-install-recommends --yes git
 
-ENTRYPOINT ["/entrypoint.sh"]
+RUN pip install --target=/app Jinja2 click
+
+ENV PYTHONPATH /app
+
+RUN chmod +x /app/main.py
+
+CMD ["python3", "/app/main.py"]
