@@ -29,7 +29,8 @@ def generate(
     base: str, workdir: str, dev: bool = False, force_upgrade: bool = True
 ) -> str:
     vals = {}
-    environment = Environment(loader=FileSystemLoader("templates/"))
+    # TODO: Use context path
+    environment = Environment(loader=FileSystemLoader("/app/templates/"))
     template = environment.get_template("Dockerfile.jinja")
 
     for name, filename in SOURCES:
