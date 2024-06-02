@@ -4,17 +4,30 @@ branding:
   icon: 'code'
   color: 'green'
 inputs:
-  image:
+  workdir:
+    description: 'Workdir'
+    type: string
+    required: false
+    default: /github/workspace
+  filename:
+    description: 'Filename'
+    type: string
+    required: false
+    default: Dockerfile
+  base:
     description: 'Base Image'
     type: string
     required: true
   dev:
     description: 'Dev mode'
-    type: bool
+    type: string
     required: false
-    default: false
+    default: ''
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.args }}
+    - ${{ inputs.workdir }}
+    - ${{ inputs.filename }}
+    - ${{ inputs.base }}
+    - ${{ inputs.dev }}

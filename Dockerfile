@@ -11,4 +11,4 @@ ENV PYTHONPATH /app
 
 RUN chmod +x /app/main.py
 
-CMD ["python3", "/app/main.py"]
+ENTRYPOINT ["/app/entrypoint.sh"]
