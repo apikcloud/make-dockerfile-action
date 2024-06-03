@@ -14,6 +14,9 @@ DEV_PACKAGES = [
     "websocket-client",
 ]
 
+# TODO: Use context path
+TEMPLATES_PATH = "/app/templates/"
+
 
 def extract_items(filepath: str) -> List:
     if not os.path.exists(filepath):
@@ -30,8 +33,8 @@ def generate(
     base: str, workdir: str, dev: bool = False, force_upgrade: bool = True
 ) -> str:
     vals = {}
-    # TODO: Use context path
-    environment = Environment(loader=FileSystemLoader("/app/templates/"))
+
+    environment = Environment(loader=FileSystemLoader(TEMPLATES_PATH))
     template = environment.get_template("Dockerfile.jinja")
 
     for name, filename in SOURCES:
@@ -49,14 +52,32 @@ def generate(
 
 
 @click.command()
-@click.option("--dev", is_flag=True, default=False, help="Dev mode.")
 @click.option(
-    "--output", is_flag=True, default=False, help="Write content to filepath."
+    "--dev",
+    is_flag=True,
+    default=False,
+    help="Dev mode.",
 )
-@click.option("--no-upgrade", is_flag=True, default=False, help="No pip upgrade.")
-@click.option("--workdir", required=True, help="Working directory.")
-@click.option("--base", required=True, help="Base image.")
-@click.option("--filename", required=False, default="Dockerfile", help="Filename.")
+@click.option(
+    "--output",
+    is_flag=True,
+    default=False,
+    help="Write content to filepath.",
+)
+@click.option(
+    "--no-upgrade",
+    is_flag=True,
+    default=False,
+    help="No pip upgrade.",
+)
+@click.option(
+    "--filename",
+    required=False,
+    default="Dockerfile",
+    help="Filename.",
+)
+@click.argument("workdir")
+@click.argument("base")
 def main(workdir, base, output, filename, dev, no_upgrade) -> None:
     """Generate Dockerfile"""
 
