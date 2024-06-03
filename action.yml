@@ -28,6 +28,6 @@ runs:
   image: 'Dockerfile'
   args:
     - ${{ inputs.workdir }}
-    - ${{ inputs.filename }}
     - ${{ inputs.base }}
+    - --filename ${{ inputs.filename }}
     - ${{ inputs.dev }}
