@@ -8,6 +8,7 @@ inputs:
     description: 'Args'
     type: string
     required: true
+runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
