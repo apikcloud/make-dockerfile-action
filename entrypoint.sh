@@ -2,5 +2,5 @@
 
 set -e
 
-python3 /app/main.py $@ --output
+python3 /app/main.py $@
 
