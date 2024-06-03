@@ -20,7 +20,8 @@ def extract_items(filepath: str) -> List:
         return []
 
     with open(filepath, "r") as file:
-        items = [item.strip() for item in file.readlines() if not item.startswith("#")]
+        items = [item for item in file.readlines() if not item.startswith("#")]
+        items = list(set(filter(bool, map(str.strip, items))))
 
     return items
 
